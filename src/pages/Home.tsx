@@ -7,23 +7,23 @@ type CityState = {
   name: string;
   datetime?: string;
   loading: boolean;
-  error: string | null;
 };
 
 export default function Home() {
   const [cities, setCities] = useState<CityState[]>(
-    CITIES.map((c) => ({ name: c.name, tz: c.tz, loading: true, error: null }))
+    CITIES.map((c) => ({ name: c.name, tz: c.tz, loading: true }))
   );
 
   async function loadAll() {
-    setCities((s) => s.map((c) => ({ ...c, loading: true, error: null })));
+    setCities((s) => s.map((c) => ({ ...c, loading: true })));
     await Promise.all(
-      cities.map(async (c) => {
+      CITIES.map(async (c) => {
         try {
           const data = await fetchTimeForTimezone(c.tz);
           setCities((prev) => prev.map((p) => (p.tz === c.tz ? { ...p, datetime: data.datetime, loading: false } : p)));
         } catch (err: any) {
-          setCities((prev) => prev.map((p) => (p.tz === c.tz ? { ...p, loading: false, error: String(err) } : p)));
+          console.error('Error fetching timezone for', c.tz, err);
+          setCities((prev) => prev.map((p) => (p.tz === c.tz ? { ...p, loading: false } : p)));
         }
       })
     );
