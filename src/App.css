@@ -1,7 +1,8 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -50,18 +51,28 @@
 
 :root[data-theme='dark'] {
   --bg: #0f1115;
-  --text: #e6eef8;
+  --text: #3e4043;
   --muted: #9aa6b2;
   --card: #121417;
 }
 
 .app-root {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 1rem;
+  max-width: none;
+  margin: 0;
+  padding: 1rem 0;
   color: var(--text);
   background: var(--bg);
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* World-map background and layout adjustments */
+.app-root {
+  background-image: url('/world-map.svg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .app-header {
@@ -70,6 +81,10 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 1rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
 }
 .app-header nav a {
   margin-right: 12px;
@@ -77,29 +92,126 @@
   text-decoration: none;
 }
 
+/* Ensure header links and main title are dark on light backgrounds */
+:root .app-header nav a,
+:root .app-root h1,
+:root .app-root h2,
+:root .app-root h3 {
+  color: #111;
+  text-shadow: none;
+}
+
+/* In dark theme keep headings lighter for contrast */
+:root[data-theme='dark'] .app-header nav a,
+:root[data-theme='dark'] .app-root h1,
+:root[data-theme='dark'] .app-root h2,
+:root[data-theme='dark'] .app-root h3 {
+  color: var(--text);
+}
+
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 2rem 2rem;
+  box-sizing: border-box;
 }
 
 .city-card {
-  background: var(--card);
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(15,16,20,0.06);
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: start;
+  backdrop-filter: blur(4px);
+  flex: 0 1 220px;
+  min-width: 180px;
+  max-width: 320px;
 }
+
+/* Link color variables for contrast */
+:root {
+  --link: #2f2fb8;
+}
+:root[data-theme='dark'] {
+  --link: #89a7ff;
+}
+
+.details-link { color: var(--link) }
+
+/* Ensure main content stretches full width and centers internal content only where desired */
+.app-root main { width: 100%; max-width: none; padding-top: 2.5rem }
+.city-card:hover { transform: translateY(-4px); transition: transform .18s ease-out }
 .city-card .time { font-size: 1.25rem; font-weight: 600 }
 .city-card .tz { font-size: 0.85rem; color: var(--muted) }
 .city-card .day-night { font-size: 1.2rem }
 .details-link { margin-top: auto; align-self: stretch; text-align: center; display: inline-block }
 
+/* Make the grid sit visually on top of the map: add some top padding so map is visible */
+.app-root main { padding-top: 2.5rem }
+
 .error { color: #ff6b6b }
 .muted { color: var(--muted) }
 
+.city-details {
+  width: calc(100% - 2rem);
+  max-width: none;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
 .city-details p { margin: 6px 0 }
+
+/* Ensure headings contrast against the world-map background in light theme */
+.app-root h1,
+.app-root h2,
+.app-root h3 {
+  color: var(--text);
+}
+:root .app-root h1,
+:root .app-root h2,
+:root .app-root h3 {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.65);
+}
+:root[data-theme='dark'] .app-root h1,
+:root[data-theme='dark'] .app-root h2,
+:root[data-theme='dark'] .app-root h3 {
+  text-shadow: none;
+}
+
+/* Dark theme: darken the background image with an overlay so it reads as a dark image */
+:root[data-theme='dark'] .app-root {
+  background-color: #071018;
+  background-image: url('/world-map.svg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+:root[data-theme='dark'] .app-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(3,7,12,0.72), rgba(3,7,12,0.72));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure page content sits above the overlay */
+.app-root > * {
+  position: relative;
+  z-index: 1;
+}
 

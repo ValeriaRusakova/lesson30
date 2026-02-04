@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#e6eef8" />
+      <stop offset="1" stop-color="#f7fbff" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#g)"/>
+  <g fill="#cfd8e3" opacity="0.6">
+    <!-- simplified continent shapes (stylized, not geographically accurate) -->
+    <path d="M150 220c40-30 80-20 120-10s90 5 130-10 70-45 120-40 80 30 120 50 90 20 140 10 100-40 150-30 80 70 110 100 40 90 30 140-40 90-80 120-110 40-170 30-110-60-160-80-120-20-170 0-100 80-160 90-120-10-160-60-40-110-20-170 70-100 120-130z" />
+    <path d="M50 80c30-20 70-15 110-10s80 10 120 5 100-20 150-15 90 40 140 45 100-5 150 5 90 35 130 50 80 20 120 10 100-40 150-30" />
+  </g>
+  <circle cx="600" cy="300" r="295" fill="none" stroke="#b0c4d6" stroke-width="2" opacity="0.35"/>
+</svg>
