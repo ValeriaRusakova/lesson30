@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // Proxy timezone requests in development to avoid CORS and rate-limit issues
+      // Route timezone requests to local proxy to avoid direct external connections
       '/api/timezone': {
-        target: 'https://worldtimeapi.org',
+        target: 'http://localhost:3000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/timezone/, '/api/timezone'),
       },

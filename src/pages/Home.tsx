@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CityCard from '../components/CityCard';
 import { CITIES, fetchTimeForTimezone } from '../api/timeApi';
 
@@ -43,7 +43,7 @@ export default function Home() {
       <h1>World Time</h1>
       <section className="grid">
         {cities.map((c) => (
-          <CityCard key={c.tz} name={c.name} tz={c.tz} datetime={c.datetime} loading={c.loading} error={c.error} />
+          <CityCard key={c.tz} name={c.name} tz={c.tz} datetime={c.datetime} loading={c.loading} />
         ))}
       </section>
     </main>

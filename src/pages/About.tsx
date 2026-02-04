@@ -1,4 +1,4 @@
-import React from 'react';
+// About page - no default React import needed with the new JSX runtime
 
 export default function About() {
   return (
